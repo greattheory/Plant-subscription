@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Зелёная Подписка - Эко-сервис доставки растений</title>
+    <style>
+        :root {
+            --primary: #2e7d32;
+            --primary-light: #4caf50;
+            --primary-dark: #1b5e20;
+            --accent: #ff9800;
+            --text: #333;
+            --text-light: #666;
+            --background: #f8fdf8;
+            --white: #ffffff;
+            --shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background-color: var(--white);
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+        }
+
+        .logo i {
+            margin-right: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .cta-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .cta-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            color: var(--text-light);
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+
+        .secondary-button {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 0.7rem 1.5rem;
+            border-radius: 4px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .secondary-button:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 5rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-title h2 {
+            font-size: 2.2rem;
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .section-title p {
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 5rem 0;
+            background-color: #f0f7f0;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .pricing-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 2.5rem 2rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .pricing-card.popular {
+            border: 2px solid var(--primary);
+            transform: scale(1.05);
+        }
+
+        .popular-badge {
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent);
+            color: white;
+            padding: 0.3rem 1.5rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .pricing-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-dark);
+        }
+
+        .price {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+
+        .price span {
+            font-size: 1rem;
+            color: var(--text-light);
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+            text-align: left;
+        }
+
+        .pricing-features li {
+            margin-bottom: 0.7rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .pricing-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: bold;
+        }
+
+        /* How It Works Section */
+        .how-it-works {
+            padding: 5rem 0;
+        }
+
+        .steps {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .step {
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+            padding: 0 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .step-number {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin: 0 auto 1rem;
+        }
+
+        /* Subscription Form */
+        .subscription {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            text-align: center;
+        }
+
+        .subscription-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 2.5rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-dark);
+            color: white;
+            padding: 3rem 0 1.5rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column h3 {
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .footer-column h3:after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -8px;
+            width: 40px;
+            height: 2px;
+            background-color: var(--accent);
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.7rem;
+        }
+
+        .footer-links a {
+            color: #e0e0e0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.9rem;
+            color: #e0e0e0;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 8px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+
+        .success-message {
+            display: none;
+            background-color: #e8f5e9;
+            border-left: 4px solid var(--primary);
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .pricing-card.popular {
+                transform: none;
+            }
+
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <i class="fas fa-leaf"></i>
+                    Зелёная Подписка
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#features">Преимущества</a></li>
+                    <li><a href="#pricing">Тарифы</a></li>
+                    <li><a href="#how-it-works">Как это работает</a></li>
+                    <li><a href="#subscription">Оформить подписку</a></li>
+                </ul>
+                <button class="cta-button" id="subscribe-btn">Оформить подписку</button>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h1>Растите вместе с нами</h1>
+            <p>Ежемесячная эко-подписка на уникальные домашние растения с доставкой. Превратите свой дом в зелёный оазис без лишних хлопот.</p>
+            <div class="hero-buttons">
+                <button class="cta-button" id="hero-subscribe-btn">Начать расти</button>
+                <button class="secondary-button">Узнать больше</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Почему выбирают нас</h2>
+                <p>Мы создали сервис, который делает заботу о растениях простой и приятной</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-seedling"></i>
+                    </div>
+                    <h3>Экологично</h3>
+                    <p>Все растения выращиваются в экологически чистых условиях, а упаковка полностью перерабатывается</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shipping-fast"></i>
+                    </div>
+                    <h3>Бесплатная доставка</h3>
+                    <p>Доставляем растения аккуратно упакованными прямо к вашей двери по всей России</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Экспертная поддержка</h3>
+                    <p>Подробные инструкции по уходу и доступ к чату с профессиональными ботаниками</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Выберите свою подписку</h2>
+                <p>Тарифы на любой уровень увлечения растениями</p>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Старт</h3>
+                    <div class="price">2 500 <span>руб/мес</span></div>
+                    <ul class="pricing-features">
+                        <li>1 молодое растение в месяц</li>
+                        <li>Эко-горшок и грунт</li>
+                        <li>Базовая инструкция по уходу</li>
+                        <li>Бесплатная доставка</li>
+                    </ul>
+                    <button class="secondary-button select-plan" data-plan="Старт">Выбрать тариф</button>
+                </div>
+                <div class="pricing-card popular">
+                    <div class="popular-badge">Популярный</div>
+                    <h3>Любитель</h3>
+                    <div class="price">4 500 <span>руб/мес</span></div>
+                    <ul class="pricing-features">
+                        <li>2 растения разных видов</li>
+                        <li>Дизайнерские горшки</li>
+                        <li>Удобрения и расширенная инструкция</li>
+                        <li>Бесплатная доставка</li>
+                        <li>Доступ к базе знаний</li>
+                    </ul>
+                    <button class="cta-button select-plan" data-plan="Любитель">Выбрать тариф</button>
+                </div>
+                <div class="pricing-card">
+                    <h3>Профи</h3>
+                    <div class="price">7 000 <span>руб/мес</span></div>
+                    <ul class="pricing-features">
+                        <li>3 растения (включая редкие сорта)</li>
+                        <li>Премиальные керамические кашпо</li>
+                        <li>Полный набор для ухода</li>
+                        <li>Бесплатная доставка</li>
+                        <li>Доступ к закрытому чату</li>
+                        <li>Персональные консультации</li>
+                    </ul>
+                    <button class="secondary-button select-plan" data-plan="Профи">Выбрать тариф</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works">
+        <div class="container">
+            <div class="section-title">
+                <h2>Как это работает</h2>
+                <p>Всего 4 простых шага до вашего зелёного друга</p>
+            </div>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Выберите подписку</h3>
+                    <p>Подберите тариф, который соответствует вашему уровню и интересам</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Оформите заказ</h3>
+                    <p>Заполните простую форму и произведите оплату онлайн</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Получите растение</h3>
+                    <p>Мы доставим ваш первый бокс с растением и всеми необходимыми материалами</p>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <h3>Наслаждайтесь ростом</h3>
+                    <p>Ухаживайте за растением с помощью наших инструкций и получайте новый бокс каждый месяц</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Subscription Section -->
+    <section class="subscription" id="subscription">
+        <div class="container">
+            <div class="section-title">
+                <h2>Готовы начать?</h2>
+                <p>Оформите подписку прямо сейчас и получите первый бокс в течение недели</p>
+            </div>
+            <div class="subscription-form">
+                <h3>Форма подписки</h3>
+                <form id="subscription-form">
+                    <div class="form-group">
+                        <label for="name">Ваше имя</label>
+                        <input type="text" id="name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Телефон</label>
+                        <input type="tel" id="phone" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="plan">Тарифный план</label>
+                            <select id="plan" required>
+                                <option value="">Выберите тариф</option>
+                                <option value="Старт">Старт - 2 500 руб/мес</option>
+                                <option value="Любитель">Любитель - 4 500 руб/мес</option>
+                                <option value="Профи">Профи - 7 000 руб/мес</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="duration">Срок подписки</label>
+                            <select id="duration" required>
+                                <option value="">Выберите срок</option>
+                                <option value="1">1 месяц</option>
+                                <option value="3">3 месяца (-10%)</option>
+                                <option value="6">6 месяцев (-15%)</option>
+                                <option value="12">12 месяцев (-20%)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="cta-button" style="width: 100%;">Оформить подписку</button>
+                </form>
+                <div class="success-message" id="success-message">
+                    <p>Спасибо за вашу заявку! Мы свяжемся с вами в ближайшее время для подтверждения подписки.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Зелёная Подписка</h3>
+                    <p>Сервис ежемесячной доставки домашних растений. Превращаем ваше пространство в зелёный оазис.</p>
+                </div>
+                <div class="footer-column">
+                    <h3>Навигация</h3>
+                    <ul class="footer-links">
+                        <li><a href="#features">Преимущества</a></li>
+                        <li><a href="#pricing">Тарифы</a></li>
+                        <li><a href="#how-it-works">Как это работает</a></li>
+                        <li><a href="#subscription">Оформить подписку</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Контакты</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-phone"></i> +7 (999) 123-45-67</li>
+                        <li><i class="fas fa-envelope"></i> hello@green-subscription.ru</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Москва, Цветочная ул., 15</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 Зелёная Подписка. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Subscription Modal -->
+    <div class="modal" id="subscription-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Оформление подписки</h2>
+            <p>Выберите удобный способ связи для оформления подписки:</p>
+            <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+                <button class="cta-button" style="flex: 1;" onclick="window.open('https://t.me/greensubscription_bot', '_blank')">
+                    <i class="fab fa-telegram"></i> Telegram
+                </button>
+                <button class="cta-button" style="flex: 1; background-color: #25D366;" onclick="window.open('https://wa.me/79991234567', '_blank')">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </button>
+            </div>
+            <p style="margin-top: 1rem; text-align: center; font-size: 0.9rem; color: var(--text-light);">
+                Или позвоните нам: +7 (999) 123-45-67
+            </p>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Modal functionality
+        const modal = document.getElementById('subscription-modal');
+        const subscribeBtns = document.querySelectorAll('#subscribe-btn, #hero-subscribe-btn');
+        const closeModal = document.querySelector('.close-modal');
+        const selectPlanBtns = document.querySelectorAll('.select-plan');
+
+        subscribeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                modal.style.display = 'flex';
+            });
+        });
+
+        selectPlanBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const plan = btn.getAttribute('data-plan');
+                document.getElementById('plan').value = plan;
+                modal.style.display = 'flex';
+            });
+        });
+
+        closeModal.addEventListener('click', () => {
+            modal.style.display = 'none';
+        });
+
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+
+        // Form submission
+        document.getElementById('subscription-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // In a real app, you would send this data to a server
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                plan: document.getElementById('plan').value,
+                duration: document.getElementById('duration').value
+            };
+            
+            console.log('Form submitted:', formData);
+            
+            // Show success message
+            document.getElementById('success-message').style.display = 'block';
+            
+            // Reset form
+            this.reset();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                document.getElementById('success-message').style.display = 'none';
+            }, 5000);
+        });
+
+        // Simple animations on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observe elements for animation
+        document.querySelectorAll('.feature-card, .pricing-card, .step').forEach(el => {
+            el.style.opacity = 0;
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>
