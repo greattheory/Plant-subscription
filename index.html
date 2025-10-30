@@ -50,6 +50,30 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
+            position: relative;
+        }
+        
+        .nav-center {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-center li {
+            margin: 0 1rem;
+        }
+        
+        .nav-center a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        .nav-center a:hover {
+            color: var(--primary);
         }
 
         .logo {
