@@ -99,3 +99,47 @@ class SubscriptionCalculator {
 document.addEventListener('DOMContentLoaded', () => {
     new SubscriptionCalculator();
 });
+
+// Добавить в существующий JS
+async function submitSubscription(formData) {
+    try {
+        const response = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showSuccessMessage(result.message);
+            // Можно добавить аналитику
+            gtag('event', 'subscription', {
+                'plan': formData.plan,
+                'duration': formData.duration
+            });
+        } else {
+            showErrorMessage(result.message);
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        showErrorMessage('Ошибка соединения. Пожалуйста, попробуйте позже.');
+    }
+}
+
+// Обновить обработчик формы
+document.getElementById('subscription-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        plan: document.getElementById('plan').value,
+        duration: document.getElementById('duration').value
+    };
+    
+    await submitSubscription(formData);
+});
