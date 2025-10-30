@@ -102,3 +102,21 @@
 .gallery-item:hover .plant-info {
     transform: translateY(0);
 }
+
+.pricing-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.pricing-features {
+    flex-grow: 1;
+    margin-bottom: 2rem;
+}
+
+.pricing-card .secondary-button,
+.pricing-card .cta-button {
+    margin-top: auto;
+    align-self: center;
+    width: 80%;
+}
